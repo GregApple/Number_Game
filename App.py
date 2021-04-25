@@ -2,6 +2,7 @@
 
 import random
 
+#App bootup screen in the command prompt. 
 def Welcome():
   print("Welcome to Guess My Number!")
   print("""
@@ -9,7 +10,8 @@ def Welcome():
   Enter 'Menu' to come back to the menu.
   Enter 'Exit' to quit the game.
   """)
-  
+
+#Activated by the Play selection from the startup menu.
 def Start_Game():
   attempt = 0
   High_Score = ""
@@ -19,11 +21,11 @@ def Start_Game():
   print("Welcome {}, to Guess My Number!".format(player))
   Guess_My_Number(attempt, High_Score, High_Score_Player, number, player)
 
+#Activated once the user guesses the correct number.   
 def Play_Again(attempt, High_Score, High_Score_Player, player):
   player = player
   play_again = input("Would you like to play again? (Y/N) ")
-  play_again = play_again.title()
-  if play_again.startswith("Y"):
+  if play_again.title().startswith("Y"):
     New_Game(attempt, High_Score, High_Score_Player, player)      
   else:
     print("Thanks for playing!")
@@ -31,7 +33,8 @@ def Play_Again(attempt, High_Score, High_Score_Player, player):
     Please type 'Exit' to leave the game 
     or type 'Menu' to return to the menu.
     """)
-  
+
+#Activated if the user enters "Y" when prompted to play again.    
 def New_Game(attempt, High_Score, High_Score_Player, player):
   
   number = random.randint(1, 100)
@@ -39,8 +42,8 @@ def New_Game(attempt, High_Score, High_Score_Player, player):
   attempt = 0
   Guess_My_Number(attempt, High_Score, High_Score_Player, number, player)
 
+#Guess input loop to handle errors caused by the user input for the guess variable.
 def getGuess():
-  #Guess input loop to handle errors caused by the user input for the guess variable.
   while True:
     try:
       guess = int(input("What do you think my number is? "))
@@ -68,15 +71,15 @@ def Guess_My_Number(attempt, High_Score, High_Score_Player, number, player):
       print("The number is higher than 0.")
       continue
     elif guess < number:
-      print("It's higher.")
+      print("The number is higher than {}.".format(guess))
       attempt += 1
       continue
     else:
-      print("It's lower.")
+      print("The number is lower than {}.".format(guess))
       attempt +=1
       continue
 
-  #The player guessed the correct number.
+  #The player guessed the correct number and has their score evaluated against the current high score.
   if High_Score == "":
     High_Score = attempt
     High_Score_Player = player
@@ -87,12 +90,11 @@ def Guess_My_Number(attempt, High_Score, High_Score_Player, number, player):
     High_Score = High_Score
 
   plural = "s" if attempt != 1 else ""
-  message = "Congratulations {}! You guessed the number in {} attempt{}.".format(player, attempt, plural)
-  print(message)
+  print("Congratulations {}! You guessed the number in {} attempt{}.".format(player, attempt, plural))
 
   Play_Again(attempt, High_Score, High_Score_Player, player)
 
-    
+#Initiates the player menu.   
 Welcome()
 while True:
   new_selection = input("> ")
